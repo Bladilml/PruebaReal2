@@ -12,7 +12,7 @@ public class Proyecto  implements java.io.Serializable {
 
      private Integer id;
      private String nombre;
-     private int descripcion;
+     private String descripcion;
      private Date fechaInicio;
      private String estado;
      private int presupuestoInicial;
@@ -22,7 +22,7 @@ public class Proyecto  implements java.io.Serializable {
     public Proyecto() {
     }
 
-    public Proyecto(String nombre, int descripcion, Date fechaInicio, String estado, int presupuestoInicial, int presupuestoGastado, int comunaId) {
+    public Proyecto(String nombre, String descripcion, Date fechaInicio, String estado, int presupuestoInicial, int presupuestoGastado, int comunaId) {
        this.nombre = nombre;
        this.descripcion = descripcion;
        this.fechaInicio = fechaInicio;
@@ -46,11 +46,11 @@ public class Proyecto  implements java.io.Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public int getDescripcion() {
+    public String getDescripcion() {
         return this.descripcion;
     }
     
-    public void setDescripcion(int descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
     public Date getFechaInicio() {

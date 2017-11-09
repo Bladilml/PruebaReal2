@@ -11,7 +11,7 @@
         <property name="nombre" type="string">
             <column name="nombre" length="100" not-null="true" />
         </property>
-        <property name="descripcion" type="int">
+        <property name="descripcion" type="string">
             <column name="descripcion" not-null="true" />
         </property>
         <property name="fechaInicio" type="date">
