@@ -7,10 +7,15 @@ package prueba.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import prueba.modelo.Provincias;
+import prueba.modelo.ProvinciasHelper;
 
 /**
  *
@@ -30,18 +35,10 @@ public class provinciaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet provinciaServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet provinciaServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+       
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,7 +53,27 @@ public class provinciaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        String regionIdStr=request.getParameter("q");
+        
+        try {
+            int regionId = Integer.parseInt(regionIdStr);
+            ProvinciasHelper provinciasHelper = new ProvinciasHelper();
+            List<Provincias> listaProvincias = provinciasHelper.getAllByRegionId(regionId);
+            // envío el select directamente al objeto Ajax XMLHttpRequest
+            try (PrintWriter out = response.getWriter();){
+                out.println("<select name=\"provincia\" id=\"provincia\" onchange=\"buscarComuna();\">");
+                out.println("   <option value=\"\" selected>Seleccione</option>");
+                for (Provincias prov : listaProvincias) {
+                    out.println("   <option value=\""+prov.getProvinciaId()+"\">"+prov.getProvinciaNombre()+"</option>");
+                }
+                out.print("</select>");
+            } catch (IOException ex){
+                Logger.getLogger(provinciaServlet.class.getName()).log(Level.SEVERE, "Error en printWriter...{0}", ex.toString());
+            }
+        } catch (NumberFormatException ex){
+            Logger.getLogger(provinciaServlet.class.getName()).log(Level.SEVERE, "id de region erroneo: {0}", ex.toString());
+        }
     }
 
     /**

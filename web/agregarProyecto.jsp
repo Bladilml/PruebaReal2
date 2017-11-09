@@ -45,7 +45,7 @@
         </script>
     </head>
     <body>
-        <form action="" method="POST">
+        <form action="agregarProyecto.do" method="POST">
             <table border="1">
                 <tbody>
                     <tr>
@@ -72,8 +72,8 @@
                         <td>
                             <select name="provincia" id="provincia" onchange="buscarComuna(this.value);">
                                 <option value="" selected>Seleccione</option>
-                                 <c:forEach var="provincia" items="${#}">
-                                    <option value="${region.regionId}">${region.regionNombre} (${region.regionOrdinal})</option>
+                                <c:forEach var="provincia" items="${listaProvincias}">
+                                    <option value="${provincia.provincia_id}">${provincia.provincia_nombre}</option>
                                 </c:forEach>
                             </select><br/>
                         </td>
@@ -83,6 +83,9 @@
                         <td>
                             <select name="comuna" id="comuna">
                                 <option value="" selected>Seleccione</option>
+                                 <c:forEach var="comuna" items="${listaComunas}">
+                                    <option value="${comuna.comuna_id}">${comuna.comuna_nombre}</option>
+                                </c:forEach>
                             </select><br/>
                         </td>
                     </tr>

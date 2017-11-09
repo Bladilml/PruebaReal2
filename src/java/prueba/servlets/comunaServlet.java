@@ -7,10 +7,15 @@ package prueba.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import prueba.modelo.Comunas;
+import prueba.modelo.ComunasHelper;
 
 /**
  *
@@ -35,7 +40,7 @@ public class comunaServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet comunaServlet</title>");            
+            out.println("<title>Servlet comunaServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet comunaServlet at " + request.getContextPath() + "</h1>");
@@ -70,7 +75,29 @@ public class comunaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        request.setCharacterEncoding("UTF-8");
+        String provinciaIdStr = request.getParameter("q");
+
+        try {
+            int provinciaId = Integer.parseInt(provinciaIdStr);
+            ComunasHelper comunasHelper = new ComunasHelper();
+            List<Comunas> listaProvincias = comunasHelper.getAllByProvinciaId(provinciaId);
+            // envío el select directamente al objeto Ajax XMLHttpRequest
+            try (PrintWriter out = response.getWriter();) {
+                out.println("<select name=\"comuna\" id=\"comuna\">");
+                out.println("   <option value=\"\" selected>Seleccione</option>");
+                for (Comunas comuna : listaProvincias) {
+                    out.println("   <option value=\"" + comuna.getComunaId() + "\">" + comuna.getComunaNombre() + "</option>");
+                }
+                out.print("</select>");
+            } catch (IOException ex) {
+                Logger.getLogger(provinciaServlet.class.getName()).log(Level.SEVERE, "Error en printWriter...{0}", ex.toString());
+            }
+        } catch (NumberFormatException ex) {
+            Logger.getLogger(provinciaServlet.class.getName()).log(Level.SEVERE, "id de region erroneo: {0}", ex.toString());
+        }
+
     }
 
     /**
