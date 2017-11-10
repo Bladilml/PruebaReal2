@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-11-2017 6:27:49 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="prueba.modelo.Proyecto" table="proyecto" catalog="prueba2" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="100" not-null="true" />
+        </property>
+        <property name="descripcion" type="int">
+            <column name="descripcion" not-null="true" />
+        </property>
+        <property name="fechaInicio" type="date">
+            <column name="fecha_inicio" length="10" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="100" not-null="true" />
+        </property>
+        <property name="presupuestoInicial" type="int">
+            <column name="presupuesto_inicial" not-null="true" />
+        </property>
+        <property name="presupuestoGastado" type="int">
+            <column name="presupuesto_gastado" not-null="true" />
+        </property>
+        <property name="comunaId" type="int">
+            <column name="comuna_id" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

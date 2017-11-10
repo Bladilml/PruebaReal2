@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-11-2017 6:27:49 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="prueba.modelo.Regiones" table="regiones" catalog="prueba2" optimistic-lock="version">
+        <id name="regionId" type="java.lang.Integer">
+            <column name="region_id" />
+            <generator class="identity" />
+        </id>
+        <property name="regionNombre" type="string">
+            <column name="region_nombre" length="64" not-null="true" />
+        </property>
+        <property name="regionOrdinal" type="string">
+            <column name="region_ordinal" length="4" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
